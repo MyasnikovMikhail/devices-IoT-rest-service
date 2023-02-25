@@ -1,6 +1,7 @@
 package org.example.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Device {
     private String secretKey;
 
     @Column(name="data_added_in_system")
-    private int dataAdd;
+    private LocalDateTime dataAdd;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "device")
     private Set<Event> event;
@@ -62,11 +63,11 @@ public class Device {
         this.nameDevices = nameDevices;
     }
 
-    public int getDataAdd() {
+    public LocalDateTime getDataAdd() {
         return dataAdd;
     }
 
-    public void setDataAdd(int dataAdd) {
+    public void setDataAdd(LocalDateTime dataAdd) {
         this.dataAdd = dataAdd;
     }
 

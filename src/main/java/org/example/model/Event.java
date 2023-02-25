@@ -2,7 +2,7 @@ package org.example.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Map;
 
 @Entity
 @Table(name="events")
@@ -21,8 +21,9 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private TypeEvent typeEvent;
 
+    @Convert
     @Column(name="payload")
-    private Object payload;
+    private Map<String,Object> payload;
 
     @Column(name="date_Created")
     private LocalDateTime dateCreated;
@@ -57,14 +58,6 @@ public class Event {
         this.typeEvent = typeEvent;
     }
 
-    public Object getPayload() {
-        return payload;
-    }
-
-    public void setPayload(Object payload) {
-        this.payload = payload;
-    }
-
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
@@ -79,5 +72,13 @@ public class Event {
 
     public void setActiveDevices(Integer activeDevices) {
         this.activeDevices = activeDevices;
+    }
+
+    public Map<String, Object> getPayload() {
+        return payload;
+    }
+
+    public void setPayload(Map<String, Object> payload) {
+        this.payload = payload;
     }
 }

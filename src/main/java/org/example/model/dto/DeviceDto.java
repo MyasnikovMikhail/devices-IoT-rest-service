@@ -1,20 +1,16 @@
 package org.example.model.dto;
 
-import java.time.LocalDateTime;
 
-
-public class DevicesDto {
+public class DeviceDto {
     private Long id;
 
     private int serialNumber;
 
     private int nameDevices;
 
-    private String secretKey;
+    private int dataAdd;
 
-    private LocalDateTime dataAdd;
-
-    public DevicesDto() {
+    public DeviceDto() {
     }
 
     public Long getId() {
@@ -49,11 +45,11 @@ public class DevicesDto {
         this.secretKey = secretKey;
     }
 
-    public LocalDateTime getDataAdd() {
+    public int getDataAdd() {
         return dataAdd;
     }
 
-    public void setDataAdd(LocalDateTime dataAdd) {
+    public void setDataAdd(int dataAdd) {
         this.dataAdd = dataAdd;
     }
 }
