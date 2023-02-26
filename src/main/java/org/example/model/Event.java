@@ -21,15 +21,13 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private TypeEvent typeEvent;
 
-    @Convert
+
     @Column(name="payload")
+    @Convert(converter = PayloadConverter.class)
     private Map<String,Object> payload;
 
     @Column(name="date_Created")
     private LocalDateTime dateCreated;
-
-    @Column(name="active_devices")
-    private Integer activeDevices;
 
     public Event() {
     }
@@ -64,14 +62,6 @@ public class Event {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public Integer getActiveDevices() {
-        return activeDevices;
-    }
-
-    public void setActiveDevices(Integer activeDevices) {
-        this.activeDevices = activeDevices;
     }
 
     public Map<String, Object> getPayload() {

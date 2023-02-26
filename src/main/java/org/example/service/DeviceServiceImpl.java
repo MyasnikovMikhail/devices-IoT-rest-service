@@ -4,11 +4,13 @@ import org.example.model.Device;
 import org.example.model.dto.DeviceDto;
 import org.example.repos.DeviceRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
+@Service
 public class DeviceServiceImpl implements DeviceService{
 
     private final DeviceRepo deviceRepo;

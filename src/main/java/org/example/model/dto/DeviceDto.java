@@ -10,6 +10,8 @@ public class DeviceDto {
 
     private int dataAdd;
 
+    private String secretKey;
+
     public DeviceDto() {
     }
 
