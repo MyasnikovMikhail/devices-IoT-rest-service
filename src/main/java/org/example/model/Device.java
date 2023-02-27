@@ -19,6 +19,9 @@ public class Device {
     @Column(name="name_devices")
     private int nameDevices;
 
+    @Column(name="type_devices")
+    private int typeDevices;
+
     @Column(name="secret_key")
     private String secretKey;
 
@@ -29,6 +32,14 @@ public class Device {
     private Set<Event> event;
 
     public Device() {
+    }
+
+    public int getTypeDevices() {
+        return typeDevices;
+    }
+
+    public void setTypeDevices(int typeDevices) {
+        this.typeDevices = typeDevices;
     }
 
     public String getSecretKey() {

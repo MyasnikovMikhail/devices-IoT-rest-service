@@ -6,6 +6,8 @@ public class DeviceDto {
 
     private int serialNumber;
 
+    private int typeDevices;
+
     private int nameDevices;
 
     private int dataAdd;
@@ -13,6 +15,14 @@ public class DeviceDto {
     private String secretKey;
 
     public DeviceDto() {
+    }
+
+    public int getTypeDevices() {
+        return typeDevices;
+    }
+
+    public void setTypeDevices(int typeDevices) {
+        this.typeDevices = typeDevices;
     }
 
     public Long getId() {

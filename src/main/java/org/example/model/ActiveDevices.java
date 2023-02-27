@@ -21,4 +21,39 @@ public class ActiveDevices {
 
     @Column(name="last_date_active")
     private LocalDateTime lastDateActive;
+
+    public ActiveDevices() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+    public LocalDateTime getFirstDateActive() {
+        return firstDateActive;
+    }
+
+    public void setFirstDateActive(LocalDateTime firstDateActive) {
+        this.firstDateActive = firstDateActive;
+    }
+
+    public LocalDateTime getLastDateActive() {
+        return lastDateActive;
+    }
+
+    public void setLastDateActive(LocalDateTime lastDateActive) {
+        this.lastDateActive = lastDateActive;
+    }
 }

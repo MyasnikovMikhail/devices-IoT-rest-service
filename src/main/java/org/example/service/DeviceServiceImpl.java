@@ -29,11 +29,17 @@ public class DeviceServiceImpl implements DeviceService{
         return deviceDto.getSecretKey();
     }
 
+    @Override
+    public Device read(String serialNumber) {
+        return deviceRepo.findBySerialNumber(serialNumber);
+    }
+
     private Device convertToDeviceDTO(DeviceDto deviceDto){
         Device device = new Device();
         device.setId(deviceDto.getId());
         device.setSerialNumber(deviceDto.getSerialNumber());
         device.setNameDevices(deviceDto.getNameDevices());
+        device.setTypeDevices(device.getTypeDevices());
         deviceDto.setSecretKey(generateRandomPassword());
         device.setSecretKey(passwordEncoder.encode(deviceDto.getSecretKey()));
         device.setDataAdd(LocalDateTime.now());
