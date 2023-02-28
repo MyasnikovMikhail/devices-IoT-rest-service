@@ -2,6 +2,7 @@ package org.example.model.dto;
 
 import org.example.model.TypeEvent;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class EventDto {
@@ -16,7 +17,17 @@ public class EventDto {
 
     private Map<String,Object> payload;
 
+    private LocalDateTime dateCreated;
+
     public EventDto() {
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public String getSecretKey() {

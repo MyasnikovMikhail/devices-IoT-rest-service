@@ -9,8 +9,8 @@ import java.util.Map;
 public class Event {
     @Id
     @Column(name="id")
-    @SequenceGenerator(name="event_seq", sequenceName="SEQ_EVENTS", allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.AUTO, generator = "event_seq")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "eventIdSeq")
+    @SequenceGenerator(name = "eventIdSeq", sequenceName = "SEQ_SERVICE", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

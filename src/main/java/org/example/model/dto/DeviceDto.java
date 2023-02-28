@@ -1,7 +1,7 @@
 package org.example.model.dto;
 
 
-import org.example.model.TypeDevices;
+import java.time.LocalDateTime;
 
 public class DeviceDto {
     private Long id;
@@ -12,8 +12,9 @@ public class DeviceDto {
 
     private String nameDevices;
 
-
     private String secretKey;
+
+    private LocalDateTime dataAdd;
 
     public DeviceDto() {
     }
@@ -58,4 +59,11 @@ public class DeviceDto {
         this.secretKey = secretKey;
     }
 
+    public LocalDateTime getDataAdd() {
+        return dataAdd;
+    }
+
+    public void setDataAdd(LocalDateTime dataAdd) {
+        this.dataAdd = dataAdd;
+    }
 }

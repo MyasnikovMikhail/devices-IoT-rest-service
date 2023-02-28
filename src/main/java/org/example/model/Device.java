@@ -9,8 +9,8 @@ import java.util.Set;
 public class Device {
     @Id
     @Column(name = "id")
-    @SequenceGenerator(name = "device_seq", sequenceName = "SEQ_DEVICE", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "device_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deviceIdSeq")
+    @SequenceGenerator(name = "deviceIdSeq", sequenceName = "SEQ_SERVICE", allocationSize = 1)
     private Long id;
 
     @Column(name="serial_number", unique = true)
@@ -20,7 +20,6 @@ public class Device {
     private String nameDevices;
 
     @Column(name="type_devices")
-    //@Enumerated(EnumType.STRING)
     private String typeDevices;
 
     @Column(name="secret_key")

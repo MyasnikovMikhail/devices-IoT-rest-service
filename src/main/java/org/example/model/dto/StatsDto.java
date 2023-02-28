@@ -1,20 +1,18 @@
 package org.example.model.dto;
 
-import org.example.model.TypeDevices;
-
 public class StatsDto {
-    private TypeDevices typeDevices;
+    private String typeDevices;
 
     private Long countEvent;
 
     public StatsDto() {
     }
 
-    public TypeDevices getTypeDevices() {
+    public String getTypeDevices() {
         return typeDevices;
     }
 
-    public void setTypeDevices(TypeDevices typeDevices) {
+    public void setTypeDevices(String typeDevices) {
         this.typeDevices = typeDevices;
     }
 

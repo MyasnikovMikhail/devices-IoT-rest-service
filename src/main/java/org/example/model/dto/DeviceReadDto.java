@@ -1,22 +1,20 @@
 package org.example.model.dto;
 
+
 import java.time.LocalDateTime;
 
-
-public class DevicesDto {
+public class DeviceReadDto {
     private Long id;
 
-    private int serialNumber;
+    private String serialNumber;
 
     private String typeDevices;
 
-    private int nameDevices;
-
-    private String secretKey;
+    private String nameDevices;
 
     private LocalDateTime dataAdd;
 
-    public DevicesDto() {
+    public DeviceReadDto() {
     }
 
     public String getTypeDevices() {
@@ -35,28 +33,20 @@ public class DevicesDto {
         this.id = id;
     }
 
-    public int getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(int serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public int getNameDevices() {
+    public String getNameDevices() {
         return nameDevices;
     }
 
-    public void setNameDevices(int nameDevices) {
+    public void setNameDevices(String nameDevices) {
         this.nameDevices = nameDevices;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 
     public LocalDateTime getDataAdd() {

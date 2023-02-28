@@ -14,10 +14,6 @@ public class PayloadConverter implements AttributeConverter<Map<String,Object>, 
     @Override
     public String convertToDatabaseColumn(Map<String, Object> attribute) {
         try {
-            if (attribute == null) {
-                //throw new NullPointerException("Нет данных для бд");
-                return "";
-            }
             return objectMapper.writeValueAsString(attribute);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -28,7 +24,7 @@ public class PayloadConverter implements AttributeConverter<Map<String,Object>, 
     public Map<String, Object> convertToEntityAttribute(String dbData) {
         try {
             if (dbData == null) {
-                throw new NullPointerException("Нет данных в бд");
+                return null;
             }
             return objectMapper.readValue(dbData, new TypeReference<Map<String, Object>>(){});
         } catch (JsonProcessingException e) {

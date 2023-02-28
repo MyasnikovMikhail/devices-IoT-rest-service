@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.exception.NoSuchObjectException;
 import org.example.model.ActiveDevices;
+import org.example.model.Device;
 import org.example.model.Event;
 import org.example.model.dto.ActiveDevicesDto;
 import org.example.model.dto.EventDto;
@@ -10,6 +11,7 @@ import org.example.repos.ActiveDevicesRepo;
 import org.example.repos.DeviceRepo;
 import org.example.repos.EventRepo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,6 @@ public class EventServiceImpl implements EventService{
     public void create(EventDto eventDto) {
         if (deviceRepo.findById(eventDto.getDeviceId()).isPresent() && passwordEncoder.matches(eventDto.getSecretKey(), deviceRepo.findById(eventDto.getDeviceId()).get().getSecretKey())) {
             ActiveDevicesDto activeDevicesDto = new ActiveDevicesDto();
-            System.out.println(activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).isPresent());
             if (activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).isPresent()) {
                 activeDevicesDto = convertToActiveDevices(activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).get());
             } else {
@@ -58,8 +59,9 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Page<Event> readBySerialNumber(String serialNumber, Pageable pageWithDevices) {
-        return eventRepo.findAllByDeviceSerialNumber(serialNumber, pageWithDevices);
+    public Page<EventDto> readBySerialNumber(String serialNumber, Pageable pageWithDevices) {
+        Page<Event> eventPage = eventRepo.findAllByDeviceSerialNumber(serialNumber, pageWithDevices);
+        return eventPage.map(this::convertToEvent);
     }
 
     @Override
@@ -73,12 +75,22 @@ public class EventServiceImpl implements EventService{
 
     private Event convertToEventDTO(EventDto eventDto){
         Event event = new Event();
-        //event.setId(eventDto.getId());
+        event.setId(eventDto.getId());
         event.setTypeEvent(eventDto.getTypeEvent());
         event.setPayload(eventDto.getPayload());
         event.setDateCreated(LocalDateTime.now());
         event.setDevice(deviceRepo.findById(eventDto.getDeviceId()).get());
         return event;
+    }
+
+    private EventDto convertToEvent(Event event){
+        EventDto eventDto = new EventDto();
+        eventDto.setId(event.getId());
+        eventDto.setTypeEvent(event.getTypeEvent());
+        eventDto.setPayload(event.getPayload());
+        eventDto.setDateCreated(event.getDateCreated());
+        eventDto.setDeviceId(eventDto.getDeviceId());
+        return eventDto;
     }
 
     private ActiveDevices convertToActiveDevicesDTO(ActiveDevicesDto activeDevicesDto){

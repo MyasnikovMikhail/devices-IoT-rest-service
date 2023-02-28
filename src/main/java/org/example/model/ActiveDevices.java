@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class ActiveDevices {
     @Id
     @Column(name = "id")
-    @SequenceGenerator(name = "active_devices_Seq", sequenceName = "SEQ_ACTIVE_DEVICE", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "active_devices_Seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "activeDeviceIdSeq")
+    @SequenceGenerator(name = "activeDeviceIdSeq", sequenceName = "SEQ_SERVICE", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -13,7 +13,7 @@ import java.util.List;
 public interface EventService {
     void create(EventDto eventDto);
 
-    Page<Event> readBySerialNumber(String serialNumber, Pageable pageWithDevices);
+    Page<EventDto> readBySerialNumber(String serialNumber, Pageable pageWithDevices);
 
     List<StatsDto> collectStatisticsEvents(LocalDateTime startLocalDateTime, LocalDateTime endLocalDateTime);
 }

@@ -21,11 +21,9 @@ import java.util.List;
 public class EventController {
     private final EventService eventService;
 
-    private final EventRepo eventRepo;
     @Autowired
-    public EventController(EventService eventService, EventRepo eventRepo) {
+    public EventController(EventService eventService) {
         this.eventService = eventService;
-        this.eventRepo = eventRepo;
     }
 
     @PostMapping(value="/event")
@@ -34,13 +32,12 @@ public class EventController {
     }
 
     @GetMapping(value="/eventSN")
-    public Page<Event> read(
+    public Page<EventDto> read(
             @RequestParam(value = "serialNumber") String  serialNumber,
             @RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
-            @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(1000) Integer limit,
-            @RequestParam("sort") GetSortEvents sort
+            @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(1000) Integer limit
     ) {
-        Pageable pageWithDevices = PageRequest.of(offset, limit, sort.getSortValue());
+        Pageable pageWithDevices = PageRequest.of(offset, limit);
         return eventService.readBySerialNumber(serialNumber,pageWithDevices);
     }
 
