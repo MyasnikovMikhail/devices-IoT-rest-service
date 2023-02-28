@@ -14,13 +14,14 @@ public class Device {
     private Long id;
 
     @Column(name="serial_number", unique = true)
-    private int serialNumber;
+    private String serialNumber;
 
     @Column(name="name_devices")
-    private int nameDevices;
+    private String nameDevices;
 
     @Column(name="type_devices")
-    private int typeDevices;
+    //@Enumerated(EnumType.STRING)
+    private String typeDevices;
 
     @Column(name="secret_key")
     private String secretKey;
@@ -34,11 +35,11 @@ public class Device {
     public Device() {
     }
 
-    public int getTypeDevices() {
+    public String getTypeDevices() {
         return typeDevices;
     }
 
-    public void setTypeDevices(int typeDevices) {
+    public void setTypeDevices(String typeDevices) {
         this.typeDevices = typeDevices;
     }
 
@@ -58,19 +59,19 @@ public class Device {
         this.id = id;
     }
 
-    public int getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(int serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public int getNameDevices() {
+    public String getNameDevices() {
         return nameDevices;
     }
 
-    public void setNameDevices(int nameDevices) {
+    public void setNameDevices(String nameDevices) {
         this.nameDevices = nameDevices;
     }
 

@@ -1,27 +1,28 @@
 package org.example.model.dto;
 
 
+import org.example.model.TypeDevices;
+
 public class DeviceDto {
     private Long id;
 
-    private int serialNumber;
+    private String serialNumber;
 
-    private int typeDevices;
+    private String typeDevices;
 
-    private int nameDevices;
+    private String nameDevices;
 
-    private int dataAdd;
 
     private String secretKey;
 
     public DeviceDto() {
     }
 
-    public int getTypeDevices() {
+    public String getTypeDevices() {
         return typeDevices;
     }
 
-    public void setTypeDevices(int typeDevices) {
+    public void setTypeDevices(String typeDevices) {
         this.typeDevices = typeDevices;
     }
 
@@ -33,19 +34,19 @@ public class DeviceDto {
         this.id = id;
     }
 
-    public int getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(int serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public int getNameDevices() {
+    public String getNameDevices() {
         return nameDevices;
     }
 
-    public void setNameDevices(int nameDevices) {
+    public void setNameDevices(String nameDevices) {
         this.nameDevices = nameDevices;
     }
 
@@ -57,11 +58,4 @@ public class DeviceDto {
         this.secretKey = secretKey;
     }
 
-    public int getDataAdd() {
-        return dataAdd;
-    }
-
-    public void setDataAdd(int dataAdd) {
-        this.dataAdd = dataAdd;
-    }
 }

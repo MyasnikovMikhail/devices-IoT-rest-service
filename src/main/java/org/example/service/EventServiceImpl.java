@@ -5,15 +5,18 @@ import org.example.model.ActiveDevices;
 import org.example.model.Event;
 import org.example.model.dto.ActiveDevicesDto;
 import org.example.model.dto.EventDto;
+import org.example.model.dto.StatsDto;
 import org.example.repos.ActiveDevicesRepo;
 import org.example.repos.DeviceRepo;
 import org.example.repos.EventRepo;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -36,27 +39,41 @@ public class EventServiceImpl implements EventService{
     @Transactional
     public void create(EventDto eventDto) {
         if (deviceRepo.findById(eventDto.getDeviceId()).isPresent() && passwordEncoder.matches(eventDto.getSecretKey(), deviceRepo.findById(eventDto.getDeviceId()).get().getSecretKey())) {
-            eventRepo.save(convertToEventDTO(eventDto));
             ActiveDevicesDto activeDevicesDto = new ActiveDevicesDto();
-            activeDevicesDto.setFirstDateActive(LocalDateTime.now());
-            if (activeDevicesRepo.findById(eventDto.getDeviceId()).isPresent()) {
-                ActiveDevices activeDevices = activeDevicesRepo.findActiveDevicesByDevice(eventDto.getDeviceId()).get();
-                activeDevices.setLastDateActive(LocalDateTime.now());
-                activeDevicesRepo.save(activeDevices);
+            System.out.println(activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).isPresent());
+            if (activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).isPresent()) {
+                activeDevicesDto = convertToActiveDevices(activeDevicesRepo.findActiveDevicesByDeviceId(eventDto.getDeviceId()).get());
             } else {
-                activeDevicesDto.setLastDateActive(LocalDateTime.now());
-                activeDevicesDto.setDeviceId(eventDto.getDeviceId());
-                activeDevicesRepo.save(convertToActiveDevicesDTO(activeDevicesDto));
+                activeDevicesDto.setFirstDateActive(LocalDateTime.now());
+                activeDevicesDto.setId(eventDto.getDeviceId());
             }
+            activeDevicesDto.setLastDateActive(LocalDateTime.now());
+            activeDevicesRepo.save(convertToActiveDevicesDTO(activeDevicesDto));
+            eventRepo.save(convertToEventDTO(eventDto));
+
         } else {
-            throw new NoSuchObjectException("There is no device with ID = " + eventDto.getDeviceId() + " in Database");
+            throw new NoSuchObjectException("There is no device with ID = " + eventDto.getDeviceId() + " in Database or incorrect SecretKey");
         }
+
     }
+
+    @Override
+    public Page<Event> readBySerialNumber(String serialNumber, Pageable pageWithDevices) {
+        return eventRepo.findAllByDeviceSerialNumber(serialNumber, pageWithDevices);
+    }
+
+    @Override
+    @Transactional
+    public List<StatsDto> collectStatisticsEvents(LocalDateTime dateStart, LocalDateTime dataEnd) {
+        return eventRepo.collectStatistics(dateStart, dataEnd);
+    }
+
+
 
 
     private Event convertToEventDTO(EventDto eventDto){
         Event event = new Event();
-        event.setId(eventDto.getId());
+        //event.setId(eventDto.getId());
         event.setTypeEvent(eventDto.getTypeEvent());
         event.setPayload(eventDto.getPayload());
         event.setDateCreated(LocalDateTime.now());
@@ -66,9 +83,20 @@ public class EventServiceImpl implements EventService{
 
     private ActiveDevices convertToActiveDevicesDTO(ActiveDevicesDto activeDevicesDto){
         ActiveDevices activeDevices = new ActiveDevices();
+        activeDevices.setId(activeDevicesDto.getId());
         activeDevices.setDevice(deviceRepo.findById(activeDevicesDto.getId()).get());
         activeDevices.setFirstDateActive(activeDevicesDto.getFirstDateActive());
         activeDevices.setLastDateActive(activeDevicesDto.getLastDateActive());
         return activeDevices;
     }
+
+    private ActiveDevicesDto convertToActiveDevices(ActiveDevices activeDevices){
+        ActiveDevicesDto activeDevicesDto = new ActiveDevicesDto();
+        activeDevicesDto.setId(activeDevices.getId());
+        activeDevicesDto.setDeviceId(activeDevices.getId());
+        activeDevicesDto.setFirstDateActive(activeDevices.getFirstDateActive());
+        activeDevicesDto.setLastDateActive(activeDevices.getLastDateActive());
+        return activeDevicesDto;
+    }
+
 }

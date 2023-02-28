@@ -8,7 +8,7 @@ public class DevicesDto {
 
     private int serialNumber;
 
-    private int typeDevices;
+    private String typeDevices;
 
     private int nameDevices;
 
@@ -19,11 +19,11 @@ public class DevicesDto {
     public DevicesDto() {
     }
 
-    public int getTypeDevices() {
+    public String getTypeDevices() {
         return typeDevices;
     }
 
-    public void setTypeDevices(int typeDevices) {
+    public void setTypeDevices(String typeDevices) {
         this.typeDevices = typeDevices;
     }
 

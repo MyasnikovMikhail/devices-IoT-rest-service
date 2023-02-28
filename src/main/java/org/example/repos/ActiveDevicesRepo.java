@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ActiveDevicesRepo extends JpaRepository<ActiveDevices, Long> {
-    Optional<ActiveDevices> findActiveDevicesByDevice (long id);
+    Optional<ActiveDevices> findActiveDevicesByDeviceId (Long id);
 
     List<ActiveDevices> findAllByLastDateActiveBetween(LocalDateTime startLocalDateTime, LocalDateTime endLocalDateTime);
 

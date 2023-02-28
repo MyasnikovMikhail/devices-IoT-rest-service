@@ -1,5 +1,5 @@
 package org.example.model;
 
 public enum TypeEvent {
-    REFILL, WITHDRAWAL, TRANSFER;
+    ON, OFF, VOLUME_UP, VOLUME_DOWN
 }

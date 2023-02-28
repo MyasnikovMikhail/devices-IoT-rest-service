@@ -15,7 +15,8 @@ public class PayloadConverter implements AttributeConverter<Map<String,Object>, 
     public String convertToDatabaseColumn(Map<String, Object> attribute) {
         try {
             if (attribute == null) {
-                throw new NullPointerException("Нет данных для бд");
+                //throw new NullPointerException("Нет данных для бд");
+                return "";
             }
             return objectMapper.writeValueAsString(attribute);
         } catch (JsonProcessingException e) {

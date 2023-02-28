@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.model.Device;
 import org.example.model.Event;
 import org.example.model.dto.EventDto;
+import org.example.model.dto.StatsDto;
 import org.example.repos.EventRepo;
 import org.example.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 public class EventController {
@@ -38,6 +41,14 @@ public class EventController {
             @RequestParam("sort") GetSortEvents sort
     ) {
         Pageable pageWithDevices = PageRequest.of(offset, limit, sort.getSortValue());
-        return eventRepo.findAllByDeviceSerialNumber(serialNumber,pageWithDevices);
+        return eventService.readBySerialNumber(serialNumber,pageWithDevices);
+    }
+
+    @GetMapping(value="/statistics")
+    public List<StatsDto> collectStatisticsEvents(
+            @RequestParam(value = "dateStart") LocalDateTime dateStart,
+            @RequestParam(value = "dataEnd") LocalDateTime dataEnd
+    ) {
+        return eventService.collectStatisticsEvents(dateStart, dataEnd);
     }
 }
